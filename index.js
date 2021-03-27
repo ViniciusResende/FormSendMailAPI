@@ -30,7 +30,7 @@ app.post('/api/form', (request, response) => {
   let smtpTransport = nodemailer.createTransport(smtpConfig);
 
   let mailOptions = {
-    to: process.env.email || 'user@gmail.com',
+    to: process.env.EMAIL || 'user@gmail.com',
     subject: `Contact from your website: ${data.subject}`,
     html: `
       <h3>Informations</h3>
