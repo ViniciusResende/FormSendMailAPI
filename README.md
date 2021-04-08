@@ -41,6 +41,8 @@ The application only has a backend part:
 :bulb: So, is required that you have some way to do HTTP requests and send emails.
 </br>
 You can actually see an example of how to use it in the 'contact' section of this repository: https://github.com/ViniciusResende/ViniciusPortfolio
+</br>
+:warning: You will see that in the 'index.js' file, there are some environment variables, don't worry about it, you can simply switch this with you own values or set your environment variables too.
 
 ### Pre requirements
 #### Before start, you should need have installed in your computer those following tools:
