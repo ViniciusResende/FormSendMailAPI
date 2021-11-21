@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 app.post('/api/form', (request, response) => {
@@ -20,17 +20,17 @@ app.post('/api/form', (request, response) => {
     secureConnection: false,
     ignoreTLS: true,
     auth: {
-      user: process.env.EMAIL || 'user@gmail.com',
-      pass: process.env.PASSWORD || '123456'
+      user: process.env.EMAIL || 'user@email.com',
+      pass: process.env.PASSWORD || 'teste123',
     },
     tls: {
       rejectUnAuthorized: true,
-    }
-  }
+    },
+  };
   let smtpTransport = nodemailer.createTransport(smtpConfig);
 
   let mailOptions = {
-    to: process.env.EMAIL || 'user@gmail.com',
+    to: process.env.RECEIVER_EMAIL || 'receiveremail@email.com',
     subject: `Contact from your website: ${data.subject}`,
     html: `
       <h3>Informations</h3>
@@ -39,26 +39,25 @@ app.post('/api/form', (request, response) => {
       <ul>
         <li>Name: ${data.name}</li>
         <li>E-mail: ${data.email}</li>
-        <li>Cellphone: ${data.number}</li>
       </ul>
       <h4> The message was: </h4>
       <p>${data.message}</p>
-    `
-  }
+    `,
+  };
 
-  smtpTransport.sendMail(mailOptions, (error, response) => {
-    if(error){
-      console.log(error);
+  smtpTransport.sendMail(mailOptions, (error, _res) => {
+    if (error) {
+      response.sendStatus(400);
     } else {
-      response.send('Success')
+      response.sendStatus(204);
     }
-  })
+  });
 
   smtpTransport.close();
-})
+});
 
-const PORT = process.env.PORT||3001;
+const PORT = process.env.PORT || 3001;
 
-app.listen(PORT, ()=>{
-  console.log(`server starting at port ${PORT}`)
-})
+app.listen(PORT, () => {
+  console.log(`server starting at port ${PORT}`);
+});
